@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "target": "ESNext",               // 최신 ES 기능 지원
+    "module": "ESNext",               // 모듈 시스템
+    "moduleResolution": "Node",       // Node.js 모듈 해석
+    "outDir": "./dist/main",          // 빌드된 파일이 저장될 경로
+    "rootDir": "./src/main",          // 컴파일 결과물 저장 경로
+    "strict": true,                   // 엄격한 타입 검사
+    "esModuleInterop": true,          // CommonJS와 ES 모듈 호환
+    "skipLibCheck": true,             // 라이브러리 타입 검사 생략
+    "forceConsistentCasingInFileNames": true, // 파일 이름 대소문자 일관성 검사
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["*"],
+      "@firebase/*": ["src/firebase/*"]
+    }
+  },
+  "include": ["src/main/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

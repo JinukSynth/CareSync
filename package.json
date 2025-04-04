@@ -1,0 +1,102 @@
+{
+  "name": "patient-management",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "dist/main/main.js",
+  "scripts": {
+    "dev": "tsc && npm run build:preload && concurrently \"vite --port 3005\" \"wait-on http://localhost:3005 && cross-env NODE_ENV=development electron .\"",
+    "build": "npm run build:main && npm run build:preload && npm run build:renderer && electron-builder",
+    "start": "electron .",
+    "build:main": "tsc",
+    "build:preload": "vite build --config vite.config.preload.ts",
+    "build:renderer": "vite build",
+    "dist": "npm run clean && npm run build && electron-builder -mw",
+    "dist:mac": "npm run build && electron-builder --mac",
+    "dist:win": "npm run build && electron-builder --win",
+    "clean": "rm -rf dist/ release/",
+    "lint": "eslint ."
+  },
+  "build": {
+    "appId": "com.patient.management",
+    "icon": "public/logo.png",
+    "productName": "CareSync",
+    "files": [
+      "dist/main/**/*",
+      "dist/renderer/**/*",
+      "node_modules/**/*",
+      "public/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "src/renderer/assets",
+        "to": "assets"
+      }
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "mac": {
+      "target": "dmg",
+      "category": "public.app-category.utilities",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "deleteAppDataOnUninstall": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "PatientManagement"
+    }
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@hookform/resolvers": "^4.0.0",
+    "@mui/icons-material": "^6.4.4",
+    "@mui/material": "^6.4.3",
+    "@mui/styled-engine": "^6.4.3",
+    "@radix-ui/react-dialog": "^1.1.5",
+    "@tailwindcss/postcss": "^4.0.1",
+    "@tailwindcss/vite": "^4.0.1",
+    "dayjs": "^1.11.13",
+    "firebase": "^11.2.0",
+    "lucide-react": "^0.475.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-hook-form": "^7.54.2",
+    "react-router-dom": "^7.1.5",
+    "yup": "^1.6.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
+    "electron": "^34.2.0",
+    "electron-builder": "^25.1.8",
+    "postcss": "^8.5.1",
+    "tailwindcss": "^4.0.1",
+    "terser": "^5.39.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.3",
+    "vite": "^6.0.11",
+    "wait-on": "^8.0.2"
+  }
+}
